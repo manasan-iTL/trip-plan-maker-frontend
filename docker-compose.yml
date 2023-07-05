@@ -10,4 +10,5 @@ services:
     command: sh -c 'cd frontend && npm start'
     ports:
       - 3000:3000
+      - 6006:6006
     tty: true
