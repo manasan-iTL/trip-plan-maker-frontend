@@ -1,0 +1,9 @@
+
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-itmes: center;
+    row-gap: 25px;
+    width: 240px;
+}
