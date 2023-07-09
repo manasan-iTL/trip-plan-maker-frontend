@@ -10,9 +10,20 @@ export default meta
 
 type Story = StoryObj<typeof Checkbox>
 
-export const Default: Story = {
+export const NonChecked: Story = {
     args: {
         id: "sample",
-        labelName: "温泉巡り"
+        labelName: "温泉巡り",
+        checked: false,
+        value: "温泉巡り"
+    }
+}
+
+export const Checked: Story = {
+    args: {
+        id: "sample",
+        labelName: "温泉巡り",
+        checked: true,
+        value: "温泉巡り"
     }
 }
