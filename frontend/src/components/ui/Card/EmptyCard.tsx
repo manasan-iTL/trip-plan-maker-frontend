@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "./EmptyBox.module.css"
+import classes from "./EmptyCard.module.css"
 
 interface Props {
     text: string;
@@ -7,7 +7,7 @@ interface Props {
     style: React.CSSProperties
 }
 
-const EmptyBox = (props: Props) => {
+const EmptyCard = (props: Props) => {
     return (
         <div className={classes.box} style={props.style}>
             <div className={classes.numberIcon}>
@@ -18,4 +18,4 @@ const EmptyBox = (props: Props) => {
     )
 }
 
-export default EmptyBox
+export default EmptyCard
