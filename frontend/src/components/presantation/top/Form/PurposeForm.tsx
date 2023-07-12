@@ -1,6 +1,6 @@
 import React from "react"
-import { Checkbox } from "../../ui/index"
-import { Purpose } from "../../types/types"
+import { Checkbox } from "../../../ui/index"
+import { Purpose } from "../../../types/types"
 import classes from "./PurposeForm.module.css"
 
 interface PurposeList {
