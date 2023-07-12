@@ -1,0 +1,47 @@
+
+.container {
+    padding: 10px;
+    display: flex;
+    align-items: stretch;
+    border-top: 1px solid rgba(51, 51, 51, 0.20);
+    border-bottom: 1px solid rgba(51, 51, 51, 0.20);
+    background: #FFF;
+}
+
+.imgArea {
+    width: 33%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.spot {
+    width: 66%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+}
+
+.img {
+    width: 100%;
+}
+
+.text {
+    color: #333;
+    font-family: Noto Sans JP;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.Btn {
+    border-radius: 20px;
+    background: #84F0FF;
+    color: #33333;
+    padding: 10px;
+    width: 80%;
+    border: none;
+    cursor: pointer;
+}
