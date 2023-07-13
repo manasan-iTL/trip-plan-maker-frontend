@@ -13,6 +13,7 @@ type Story = StoryObj<typeof TextInput>
 export const Default: Story = {
     args: {
         value: "",
+        id: "sample1",
         iconSize: "20px"
     }
 }

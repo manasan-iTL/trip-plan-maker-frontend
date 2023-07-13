@@ -4,6 +4,7 @@ import classes from "./Input.module.css"
 interface Props {
     value: string;
     iconSize: string;
+    id: String;
 }
 
 const TextInput = (props: Props) => {
