@@ -1,9 +1,15 @@
 import { Tab } from "../../../ui"
-import { TabActive } from "../../../types/types";
+import SearchSpot from "../Box/SearchSpot";
+import SearchPrefecture from "../Box/SearchPrefecture";
+import { Accordion, Spot, TabActive } from "../../../types/types";
 import classes from "./SearchAreaForm.module.css"
 
 interface Props {
     TabActive: TabActive;
+    spotInputId: string;
+    spotValue: string;
+    spots: Spot[]
+    accordionItems: Accordion[]
 }
 
 const SearchAreaForm = (props: Props) => {
@@ -17,7 +23,11 @@ const SearchAreaForm = (props: Props) => {
             </div>
             {/* 検索フォーム */ }
             <div className={classes.form}>
-                { props.TabActive === "SPOT"? <div>Spot検索</div> : <div>エリア検索</div> }
+                { props.TabActive === "SPOT"? <SearchSpot inputId={props.spotInputId} 
+                                                          inputValue={props.spotValue} 
+                                                          spots={props.spots}
+                                               /> 
+                                            : <SearchPrefecture accordionItems={props.accordionItems}/> }
                 
             </div>
         </section>
