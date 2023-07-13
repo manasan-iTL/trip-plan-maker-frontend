@@ -16,7 +16,7 @@ export const Close: Story = {
     args: {
         categoryName: "アウトドア",
         active: false,
-        children: <div>サンプル</div>
+        children: <Checkbox id="sample1" labelName="バーベキュー" checked={false} value="バーベキュー" style={{}}/>
     }
 } 
 
