@@ -1,5 +1,5 @@
 import React from "react"
-import { Checkbox } from "../../../ui/index"
+import { Checkbox } from "../../../ui"
 import { Purpose } from "../../../types/types"
 import classes from "./PurposeForm.module.css"
 
