@@ -1,6 +1,5 @@
 import { Accordion } from "../../types/types"
-import AccordionItem from "../../ui/Accordion/AccordionItem"
-import Checkbox from "../../ui/checkbox/Checkbox"
+import { AccordionItem, Checkbox } from "../../ui"
 import classes from "./Accordions.module.css"
 
 interface Props {
