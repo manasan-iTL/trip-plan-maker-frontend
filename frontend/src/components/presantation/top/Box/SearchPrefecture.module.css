@@ -1,0 +1,21 @@
+
+.container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+}
+
+.heading {
+    color: #000;
+    font-family: Noto Sans JP;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.accordions {
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+}
