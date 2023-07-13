@@ -1,10 +1,8 @@
 import classes from "./SpotCard.module.css"
+import { Spot } from "../../types/types";
+import Button from "../Button/Button";
 
-interface Props {
-    spotName: string;
-    spotImgSrc: string;
-    spotImgAlt: string;
-}
+type Props = Spot
 
 const SpotCard = (props: Props) => {
     return (
@@ -14,9 +12,9 @@ const SpotCard = (props: Props) => {
             </div>
             <div className={classes.spot}>
                 <p className={classes.text}>{props.spotName}</p>
-                <div>
-                    <button className={classes.Btn}>追加</button>
-                </div>
+                <Button buttonStyles={{width: "80%"}}>
+                    追加
+                </Button>
             </div>
         </div>
     )

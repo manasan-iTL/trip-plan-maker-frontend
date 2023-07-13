@@ -14,6 +14,12 @@ type AccordionChild = Prefecture | Category
 
 export type TabActive = "SPOT" | "AREA"
 
+export type Spot = {
+    spotName: string;
+    spotImgSrc: string;
+    spotImgAlt: string;
+}
+
 export interface Purpose {
     id: string;
     labelName: string;
