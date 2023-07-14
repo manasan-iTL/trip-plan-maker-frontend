@@ -4,7 +4,7 @@ import classes from "./EmptyCard.module.css"
 interface Props {
     text: string;
     iconNumber: number;
-    style: React.CSSProperties
+    style?: React.CSSProperties
 }
 
 const EmptyCard = (props: Props) => {
