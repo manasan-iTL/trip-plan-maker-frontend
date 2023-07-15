@@ -15,5 +15,6 @@ export const Default: Story = {
         spotName: "東京スカイツリー",
         spotImgAlt: "東京スカイツリー",
         spotImgSrc: "https://www.tokyo-skytree.jp/img/lighting/db7bb7802658fefbdcae4ca407cefd4632233320221406389.png",
+        imgSize: { height: "70px" }
     }
 }
