@@ -12,7 +12,7 @@ const TravelSpots = (props: Props) => {
             <h2 className={classe.heading}>行きたい場所</h2>
             <div>
                 { !props.spots.length ? <EmptyCard text="１つ以上は選択してください" iconNumber={1} /> 
-                                     : props.spots.map(spot => <SpotCard {...spot}/>)
+                                     : props.spots.map(spot => <SpotCard {...spot} imgSize={{height: "70px"}}/>)
                 }
             </div>
         </div>

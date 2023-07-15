@@ -21,7 +21,7 @@ const SearchSpot = (props: Props) => {
             <div>
                 <p className={classes.heading}>検索結果</p>
                 { props.spots.length? props.spots.map(spot => (
-                    <SpotCard spotName={spot.spotName} spotImgAlt={spot.spotImgAlt} spotImgSrc={spot.spotImgSrc}/>
+                    <SpotCard spotName={spot.spotName} spotImgAlt={spot.spotImgAlt} spotImgSrc={spot.spotImgSrc} imgSize={{height: "70px"}}/>
                 )) 
                 :null
                 }
