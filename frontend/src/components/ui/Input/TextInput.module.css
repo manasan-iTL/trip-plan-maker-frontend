@@ -17,15 +17,21 @@
     padding: 5px;
 }
 
-.iconArea {
-    border-radius: 5px;
-    border: 2px solid rgba(51, 51, 51, 0.70);
-    background: #FFF;
-    width: 10%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+.input[type="text"]:focus {
+    border: 2px solid #468BEA;
+    outline: none;
 }
 
+.iconArea {
+    background: #FFF;
+    width: 10%;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.searchBtn {
+    border: none;
+    background-color: #FFF;
+    border-radius: 5px;
+    border: 2px solid rgba(51, 51, 51, 0.70);
+}
