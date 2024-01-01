@@ -5,6 +5,7 @@ interface Props {
     children: React.ReactNode;
     buttonStyles?: React.CSSProperties;
     containerStyles?: React.CSSProperties;
+    onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 const Button = (props: Props) => {
@@ -13,6 +14,7 @@ const Button = (props: Props) => {
             <button 
                 className={classes.Btn}
                 style={props.buttonStyles} 
+                onClick={props.onClick}
             >
                 {props.children}
             </button>
