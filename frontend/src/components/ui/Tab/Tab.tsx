@@ -5,6 +5,7 @@ interface Props {
     styles: React.CSSProperties;
     text: string;
     active: boolean;
+    onClick: () => void
 }
 
 const Tab = (props: Props) => {
@@ -14,7 +15,7 @@ const Tab = (props: Props) => {
 
     return (
         <div className={containerClasses} style={props.styles}>
-            <button className={classes.button}>
+            <button className={classes.button} onClick={props.onClick}>
                 { props.text }
             </button>
         </div>
