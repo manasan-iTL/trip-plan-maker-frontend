@@ -1,34 +1,94 @@
+import React, { useState } from "react"
 import PurposeForm from "../Form/PurposeForm"
-import { Accordion, Purpose, Spot, TabActive } from "../../../types/types"
+import { Accordion, TabActive } from "../../../types/types"
+import { ActiveTime, Location, PurposeItem, Spot, TripDateTime } from "../../../types/v2Types"
 import TravelSpots from "../Box/TravelSpots"
 import SearchAreaForm from "../Form/SearchAreaForm"
 import classes from "./TopTemplate.module.css"
+import MoreConditions from "../Form/MoreCondiontions"
+import { Button, Radio, TextInput, Title } from "../../../ui"
+import Header from "../../../ui/Header/Header"
 
 interface Props {
-    purposes: Purpose[];
-    spots: Spot[];
+    purposes: PurposeItem[];
+    selectSpots: Spot[] | undefined;
+    spots: Spot[] | undefined;
     tabActive: TabActive;
-    spotInputId: string;
     spotValue: string;
-    accordionItems: Accordion[]
+    handleSearchValueChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    searchBtnClick: (e: React.MouseEvent<HTMLButtonElement>) => void
+    accordionItems: Accordion[];
+    handleChangePurposeCheckbox: (value: string) => void;
+    handleChangePrefecureCheckbox: (value: string) => void;
+    handleAddSpot: (e: React.MouseEvent<HTMLButtonElement>, spotName: string) => void;
+    handleReduceSpot: (e: React.MouseEvent<HTMLButtonElement>, spotName: string) => void;
+    handleClickNextPage: () => void;
+    tripDate: TripDateTime,
+    activeTimes: ActiveTime[],
+    onDateInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    onDateSelectChange: (e: React.ChangeEvent<HTMLSelectElement>) => void,
+    location: Location | null,
+    address: string,
+    depatureAt: string | null,
+    onRadioChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    onAddressChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 const TopTemplate = (props: Props) => {
+
     return (
         <div>
+            <Header />
             <main className={classes.container}>
-                <h1 className={classes.heading}>旅行プラン</h1>
-                <PurposeForm purposes={props.purposes}/>
+                <Title>旅行プランを作成する</Title>
+                <PurposeForm 
+                    purposes={props.purposes}
+                    onChange={props.handleChangePurposeCheckbox}
+                />
                 <div className={classes.travelSpotsArea}>
-                    <TravelSpots spots={props.spots}/>
+                    { /*  行きたいエリアカードを表示する　選択されたエリアはコンテナ層で計算した値を渡す  */ }
+                    <TravelSpots selectSpots={props.selectSpots} handleReduceSpot={props.handleReduceSpot}/>
                     <SearchAreaForm 
                         TabActive={props.tabActive} 
-                        spotInputId={props.spotInputId}
                         spotValue={props.spotValue}
                         spots={props.spots}
                         accordionItems={props.accordionItems}
+                        handleSearchValueChange={props.handleSearchValueChange}
+                        searchBtnClick={props.searchBtnClick}
+                        handleAddSpot={props.handleAddSpot}
+                        onChangeCheckbox={props.handleChangePrefecureCheckbox}
                     />
                 </div>
+                <section className={classes.travelDepatureArea}>
+                    <h3>出発地</h3>
+                    <div>
+                        <Radio 
+                            labelName="現在地" 
+                            value="geolocation" 
+                            checked={props.depatureAt === "geolocation" ? true: false}
+                            onChange={props.onRadioChange}
+                        />
+                        <p>{(props.location && typeof props.location !== 'string') ? `${props.location.latitude} ${props.location.longitude}` : ""}</p>
+                        <Radio 
+                            labelName="出発地の住所を入力する" 
+                            value="address" 
+                            checked={props.depatureAt === "address" ? true: false}
+                            onChange={props.onRadioChange}
+                        />
+                        {
+                            props.depatureAt === "address" ? <TextInput value={props.address} onChange={props.onAddressChange}/> :  null
+                        }
+                    </div>
+                </section>
+                <MoreConditions 
+                    tripDate={props.tripDate}
+                    activeTimes={props.activeTimes}
+                    onDateInputChange={props.onDateInputChange}
+                    onDateSelectChange={props.onDateSelectChange}
+                />
+                <Button buttonStyles={{width: "70%"}} containerStyles={{textAlign: "center"}} onClick={props.handleClickNextPage}>
+                    仮想プランを作成する
+                </Button>
             </main>
         </div>
     )

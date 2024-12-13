@@ -1,6 +1,6 @@
 import React from "react";
-import { Spot } from "../../../types/types";
-import { SpotCard, TextInput } from "../../../ui";
+import { Spot } from "../../../types/v2Types";
+import { SearchInput, SpotCard } from "../../../ui";
 import classes from "./SearchSpot.module.css"
 
 interface Props {
@@ -20,7 +20,7 @@ const SearchSpot = (props: Props) => {
                     <label className={classes.heading}>行きたい場所</label>
                     <span className={classes.subText}>例　東京スカイツリー</span>
                 </p>
-                <TextInput value={props.inputValue} iconSize="20px" onChange={props.onChange} onClick={props.searchBtnClick}/>
+                <SearchInput value={props.inputValue} iconSize="20px" onChange={props.onChange} onClick={props.searchBtnClick}/>
             </div>
             <div>
                 <p className={classes.heading}>検索結果</p>

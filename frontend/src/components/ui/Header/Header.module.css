@@ -1,0 +1,47 @@
+.header {
+    padding: 10px;
+    background-color: #84F0FF;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.heading {
+    margin: 0;
+}
+
+.logo {
+    display: block;
+    max-width: 150px;
+    height: 60px;
+}
+
+.image {
+    width: 100%;
+}
+
+.globalNav {
+    flex: 1;
+}
+
+.list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.link {
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+}
+
+.link:hover {
+    opacity: 0.5;
+}

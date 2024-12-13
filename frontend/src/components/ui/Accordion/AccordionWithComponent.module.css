@@ -1,0 +1,39 @@
+
+.container {
+    border: 1px solid rgba(51, 51, 51, 0.20);
+    background: #FFF;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 10px;
+}
+
+.titleArea {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.list {
+    list-style: none;
+}
+
+.listItem {
+
+}
+
+.initial {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: all .4s ease;
+}
+
+.hidden {
+    overflow: hidden;
+}
+
+.open {
+    grid-template-rows: 1fr;
+}

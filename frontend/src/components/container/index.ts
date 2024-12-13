@@ -1,0 +1,6 @@
+export { default as TopPage } from "./TopContainer"
+export { default as PlanPage } from "./PlanContainer"
+export { default as PurposePage } from "./PurposesContainer"
+export { default as SpotDetailPage } from "./SpotDetailContainer"
+export { default as SearchSpotPage } from "./SearchSpotContainer"
+// export { default as PlanConfirmPage } from "./PlanConfirmContainer"

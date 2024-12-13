@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./SpotCard.module.css"
-import { Spot } from "../../types/types";
+import { Spot } from "../../types/v2Types";
 import Button from "../Button/Button";
 
 type Props = Spot &

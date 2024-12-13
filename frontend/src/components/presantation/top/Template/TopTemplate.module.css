@@ -1,23 +1,21 @@
+body {
+    margin: 0;
+}
 
 .container {
     display: flex;
     flex-direction: column;
     row-gap: 40px;
-}
-
-.heading {
-    color: rgba(51, 51, 51, 1.0);
-    text-align: center;
-    font-family: Noto Sans JP;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    text-align: center;
+    padding: 30px;
 }
 
 .travelSpotsArea {
     display: flex;
     flex-direction: column;
     row-gap: 50px;
+}
+
+.travelDepatureArea {
+    border: 1px gray solid;
+    padding: 20px;
 }

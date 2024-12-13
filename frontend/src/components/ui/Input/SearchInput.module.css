@@ -1,0 +1,37 @@
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+.inputArea {
+    width: 80%;
+    background: #FFF;
+}
+
+.input {
+    width: 100%;
+    border-radius: 5px;
+    border: 2px solid rgba(51, 51, 51, 0.70);
+    padding: 5px;
+}
+
+.input[type="text"]:focus {
+    border: 2px solid #468BEA;
+    outline: none;
+}
+
+.iconArea {
+    background: #FFF;
+    width: 10%;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.searchBtn {
+    border: none;
+    background-color: #FFF;
+    border-radius: 5px;
+    border: 2px solid rgba(51, 51, 51, 0.70);
+}

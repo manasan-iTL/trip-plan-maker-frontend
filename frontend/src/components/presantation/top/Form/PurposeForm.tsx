@@ -1,10 +1,11 @@
 import React from "react"
 import { Checkbox } from "../../../ui"
-import { Purpose } from "../../../types/types"
 import classes from "./PurposeForm.module.css"
+import { PurposeItem } from "../../../types/v2Types";
 
 interface PurposeList {
-    purposes: Purpose[]
+    purposes: PurposeItem[];
+    onChange: (value: string) => void;
 }
 
 const PurposeForm = (props: PurposeList) => {
@@ -15,7 +16,13 @@ const PurposeForm = (props: PurposeList) => {
             </div>
             <div className={classes.checkboxArea}>
                 {props.purposes.map(purpose =>
-                    <Checkbox key={purpose.id} style={{ width: "calc(100%/2)" }} {...purpose}/> 
+                    <Checkbox 
+                        {...purpose}
+                        key={purpose.id} 
+                        style={{ width: "calc(100%/2)" }} 
+                        labelName={purpose.label}
+                        onChange={() => props.onChange(purpose.value)}
+                    /> 
                 )}
             </div>
             <p className={classes.more}>

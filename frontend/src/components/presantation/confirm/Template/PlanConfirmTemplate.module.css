@@ -1,0 +1,120 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
+    padding: 30px;
+}
+
+.listInfo {
+    list-style: none;
+    padding: 0;
+}
+
+.infoLine {
+    padding: 10px;
+    border-top: 1px solid rgba(51, 51, 51, 0.20);
+}
+
+.infoLine:nth-last-of-type(1) {
+    border-bottom: 1px solid rgba(51, 51, 51, 0.20);
+}
+
+.infoContainer {
+    padding: 20px;
+    border: 1px solid rgba(51, 51, 51, 0.20);
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+.stayDays {
+    display: flex;
+    flex-direction: row;
+    column-gap: 5px;
+}
+
+.tabContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.plusIconButton {
+    padding: 0;
+    border: none;
+    outline: none;
+    font: inherit;
+    color: inherit;
+    background: none;
+}
+
+.trainIconButton {
+    padding: 0;
+    border: none;
+    outline: none;
+    font: inherit;
+    color: inherit;
+    background: transparent;
+    cursor: pointer;
+    filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0));
+    transition: background-color 1s;
+}
+
+.dayRoute {
+    display: flex;
+    flex-direction: row;
+}
+
+.dayTimes {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.dayTime {
+    border: 1px solid black;
+    padding: 5px;
+    height: content-fit;
+}
+
+.virtualRoutesContainer {
+    display: flex;
+    flex-direction: column;
+    row-gap: 50px;
+}
+
+.trafficCard {
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+}
+
+.trainIconContainer {
+    text-align: center;
+}
+
+.trafficContainer {
+    border: 1px solid rgba(51, 51, 51, 0.20);
+    padding: 10px;
+}
+
+.trafficRoute {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.trafficTime, .trafficWay {
+    width: 50%;
+    padding: 10px;
+    height: fit-content;
+    text-align: center;
+}
+
+.trafficTime {
+    border-right: 1px solid rgba(51, 51, 51, 0.20);
+}
+
+.routesHeading, .trafficDeparture, .trafficDestination {
+    text-align: center;
+    font-weight: 700;
+}

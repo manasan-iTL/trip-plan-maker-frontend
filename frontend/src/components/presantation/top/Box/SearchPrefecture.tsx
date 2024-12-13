@@ -5,6 +5,7 @@ import classes from "./SearchPrefecture.module.css"
 
 interface Props {
     accordionItems: Accordion[]
+    onChangeCheckbox: (value: string) => void;
 }
 
 const SearchPrefecture = (props: Props) => {
@@ -14,7 +15,7 @@ const SearchPrefecture = (props: Props) => {
                 <label htmlFor="" className={classes.heading}>行きたいエリアを選択する</label>
             </div>
             <div className={classes.accordions}>
-                <Accordions accordionItems={props.accordionItems}/>
+                <Accordions accordionItems={props.accordionItems} onChangeCheckbox={props.onChangeCheckbox}/>
                 <Button buttonStyles={{width: "80%"}} containerStyles={{textAlign: "center"}}>
                     追加
                 </Button>

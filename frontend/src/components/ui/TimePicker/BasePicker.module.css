@@ -1,0 +1,19 @@
+
+.container {
+    display: flex;
+}
+
+.inputArea {
+    min-width: 50px;
+}
+
+.select {
+    width: 100%;
+    border: 2px solid rgba(51, 51, 51, 0.70);
+    padding: 5px;
+}
+
+.option {
+    display: block;
+    width: 100%;
+}

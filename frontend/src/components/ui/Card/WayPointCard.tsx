@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./WayPointCard.module.css"
-import { Spot } from "../../types/types";
 import Button from "../Button/Button";
+import { Spot } from "../../types/v2Types";
 
 type Props = Spot &
      { 
@@ -15,7 +15,7 @@ const WayPointCard = (props: Props) => {
     return (
         <div className={classes.container}>
             <div className={classes.imgArea}>
-                <img src={props.spotImgSrc} alt={props.spotImgAlt} className={classes.img} style={props.imgSize}/>
+                <img src={props.spotImgSrc} alt={""} className={classes.img} style={props.imgSize}/>
             </div>
             <div className={classes.spot}>
                 <p className={classes.text}>{props.spotName}</p>
