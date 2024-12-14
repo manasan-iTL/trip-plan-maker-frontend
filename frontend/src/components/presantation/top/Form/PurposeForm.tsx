@@ -25,11 +25,6 @@ const PurposeForm = (props: PurposeList) => {
                     /> 
                 )}
             </div>
-            <p className={classes.more}>
-                <a href="#" className={classes.moreText}>
-                    もっと見る
-                </a>
-            </p>
         </div>
     )
 }

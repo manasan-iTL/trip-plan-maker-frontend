@@ -13,13 +13,10 @@ interface Props {
     purposes: PurposeItem[];
     selectSpots: Spot[] | undefined;
     spots: Spot[] | undefined;
-    tabActive: TabActive;
     spotValue: string;
     handleSearchValueChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     searchBtnClick: (e: React.MouseEvent<HTMLButtonElement>) => void
-    accordionItems: Accordion[];
     handleChangePurposeCheckbox: (value: string) => void;
-    handleChangePrefecureCheckbox: (value: string) => void;
     handleAddSpot: (e: React.MouseEvent<HTMLButtonElement>, spotName: string) => void;
     handleReduceSpot: (e: React.MouseEvent<HTMLButtonElement>, spotName: string) => void;
     handleClickNextPage: () => void;
@@ -48,15 +45,12 @@ const TopTemplate = (props: Props) => {
                 <div className={classes.travelSpotsArea}>
                     { /*  行きたいエリアカードを表示する　選択されたエリアはコンテナ層で計算した値を渡す  */ }
                     <TravelSpots selectSpots={props.selectSpots} handleReduceSpot={props.handleReduceSpot}/>
-                    <SearchAreaForm 
-                        TabActive={props.tabActive} 
+                    <SearchAreaForm  
                         spotValue={props.spotValue}
                         spots={props.spots}
-                        accordionItems={props.accordionItems}
                         handleSearchValueChange={props.handleSearchValueChange}
                         searchBtnClick={props.searchBtnClick}
                         handleAddSpot={props.handleAddSpot}
-                        onChangeCheckbox={props.handleChangePrefecureCheckbox}
                     />
                 </div>
                 <section className={classes.travelDepatureArea}>
