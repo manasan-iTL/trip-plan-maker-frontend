@@ -9,7 +9,7 @@
 .titleContainer {
     display: flex;
     flex-direction: row;
-    align-item: center;
+    align-items: center;
     column-gap: 80px;
 }
 
