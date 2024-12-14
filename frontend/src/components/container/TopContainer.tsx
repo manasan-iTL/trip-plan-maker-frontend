@@ -52,6 +52,8 @@ const TopContainer = () => {
     });
   };
 
+  const selectedCount = purposes.filter((checkbox) => checkbox.checked).length;
+
   const handleTripDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTripDate((prev) =>
       e.target.id === "depatureAt"
@@ -221,6 +223,7 @@ const TopContainer = () => {
   return (
     <TopTemplate
       purposes={purposes}
+      selectedCount={selectedCount}
       spots={data}
       spotValue={inputSpotValue}
       handleSearchValueChange={handleInputChange}

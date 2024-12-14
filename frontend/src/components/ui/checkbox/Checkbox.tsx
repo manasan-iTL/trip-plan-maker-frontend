@@ -6,6 +6,7 @@ interface Props {
     labelName: string;
     value: string;
     checked: boolean;
+    disabled: boolean;
     onChange: (value: string) => void;
     style: React.CSSProperties;
 };
@@ -19,6 +20,7 @@ const Checkbox = (props: Props) => {
                     id= {props.id} 
                     value={props.value} 
                     checked={props.checked}
+                    disabled={props.disabled}
                     onChange={() => props.onChange(props.value)}
                     className={classes.checkbox}
             />

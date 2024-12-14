@@ -11,6 +11,7 @@ import Header from "../../../ui/Header/Header"
 
 interface Props {
     purposes: PurposeItem[];
+    selectedCount: number;
     selectSpots: Spot[] | undefined;
     spots: Spot[] | undefined;
     spotValue: string;
@@ -40,6 +41,7 @@ const TopTemplate = (props: Props) => {
                 <Title>旅行プランを作成する</Title>
                 <PurposeForm 
                     purposes={props.purposes}
+                    selectedCount={props.selectedCount}
                     onChange={props.handleChangePurposeCheckbox}
                 />
                 <div className={classes.travelSpotsArea}>
