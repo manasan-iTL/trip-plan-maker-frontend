@@ -6,7 +6,6 @@ import { postFetcher } from "../../hooks/fetcher"
 import { BASE_URL, convertJapaneseToType, PlaceType } from "../../data/constant"
 import { useV2PlanContext } from "../../hooks/context/v2PlanContext"
 import { useNavigate } from "react-router-dom"
-import { testPlan } from "../../data/initialData"
 
 
 

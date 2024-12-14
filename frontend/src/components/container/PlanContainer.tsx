@@ -25,8 +25,8 @@ const PlanContainer = () => {
     }
 
     useEffect(() => {
-        const v2Places: v2SpotCard[] = data.plan[activeIndex].Routes.filter(place => place.category === "SPOT");
-        const excluded: v2SpotCard[] = v2Places.filter(place => place.type !== "DEPARTURE");
+        const v2Places = data.plan[activeIndex].Routes.filter(place => place.category === "SPOT") as v2SpotCard[];
+        const excluded = v2Places.filter(place => place.type !== "DEPARTURE");
         const photos: MatchPhoto[] = excluded.map(place => { 
             return {
                 place_id: place.spot.place_id,
