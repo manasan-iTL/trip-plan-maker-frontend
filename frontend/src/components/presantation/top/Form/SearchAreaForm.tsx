@@ -3,6 +3,7 @@ import SearchSpot from "../Box/SearchSpot";
 import { Spot } from "../../../types/v2Types";
 import classes from "./SearchAreaForm.module.css";
 import { EmptyCard, SpotCard } from "../../../ui";
+import ErrorText from "../../../ui/Text/ErrorText";
 
 interface Props {
   spotValue: string;
@@ -12,6 +13,7 @@ interface Props {
   handleAddSpot: (e: React.MouseEvent<HTMLButtonElement>, spotName: string) => void;
   selectSpots: Spot[] | undefined;
   handleReduceSpot: (e: React.MouseEvent<HTMLButtonElement>, spotName: string) => void
+  error?: string
 }
 
 const SearchAreaForm = (props: Props) => {
@@ -19,6 +21,8 @@ const SearchAreaForm = (props: Props) => {
     <section className={classes.container}>
       <div>
         <h2 className={classes.heading}>行きたい場所</h2>
+        { props.error && <ErrorText text={props.error}/> }
+        
         <div className={classes.spotsArea}>
           {!props.selectSpots?.length ? (
             <EmptyCard text="１つ以上は選択してください" iconNumber={1} />

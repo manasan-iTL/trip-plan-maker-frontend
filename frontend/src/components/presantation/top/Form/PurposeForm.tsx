@@ -2,11 +2,13 @@ import React from "react"
 import { Checkbox } from "../../../ui"
 import classes from "./PurposeForm.module.css"
 import { PurposeItem } from "../../../types/v2Types";
+import ErrorText from "../../../ui/Text/ErrorText";
 
 interface PurposeList {
     purposes: PurposeItem[];
     selectedCount: number;
     onChange: (value: string) => void;
+    error?: string
 }
 
 const PurposeForm = (props: PurposeList) => {
@@ -15,6 +17,7 @@ const PurposeForm = (props: PurposeList) => {
             <div>
                 <h2 className={classes.heading}>目的（3つまで選択可能）</h2>
             </div>
+            { props.error && <ErrorText text={props.error}/>}
             <div className={classes.checkboxArea}>
                 {props.purposes.map(purpose =>
                     <Checkbox 

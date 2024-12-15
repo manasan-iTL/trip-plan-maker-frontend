@@ -1,13 +1,14 @@
 import React, { useState } from "react"
 import PurposeForm from "../Form/PurposeForm"
 import { Accordion, TabActive } from "../../../types/types"
-import { ActiveTime, Location, PurposeItem, Spot, TripDateTime } from "../../../types/v2Types"
+import { ActiveTime, Location, PurposeItem, Spot, TripDateTime, ValidationError } from "../../../types/v2Types"
 import TravelSpots from "../Box/TravelSpots"
 import SearchAreaForm from "../Form/SearchAreaForm"
 import classes from "./TopTemplate.module.css"
 import MoreConditions from "../Form/MoreCondiontions"
 import { Button, Radio, TextInput, Title } from "../../../ui"
 import Header from "../../../ui/Header/Header"
+import ErrorText from "../../../ui/Text/ErrorText"
 
 interface Props {
     purposes: PurposeItem[];
@@ -29,7 +30,8 @@ interface Props {
     address: string,
     depatureAt: string | null,
     onRadioChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
-    onAddressChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+    onAddressChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    validationError: ValidationError | null,
 }
 
 const TopTemplate = (props: Props) => {
@@ -43,6 +45,12 @@ const TopTemplate = (props: Props) => {
                     purposes={props.purposes}
                     selectedCount={props.selectedCount}
                     onChange={props.handleChangePurposeCheckbox}
+                    error={
+                        (props.validationError && (
+                            props.validationError.type === 'NOT_FOUND_PUREPORSES' ||
+                            props.validationError.type === 'TOO_MANY_PURPOSES'
+                        )) ? props.validationError.message : undefined
+                    }
                 />
                 <div className={classes.travelSpotsArea}>
                     { /*  行きたいエリアカードを表示する　選択されたエリアはコンテナ層で計算した値を渡す  */ }
@@ -55,10 +63,21 @@ const TopTemplate = (props: Props) => {
                         handleAddSpot={props.handleAddSpot}
                         selectSpots={props.selectSpots}
                         handleReduceSpot={props.handleReduceSpot}
+                        error={
+                            (props.validationError && (
+                                props.validationError.type === 'NOT_FOUND_WANTED_PLACE' ||
+                                props.validationError.type === 'TOO_MANY_WANTED_PLACE'
+                            )) ? props.validationError.message : undefined
+                        }
                     />
                 </div>
                 <section className={classes.travelDepatureArea}>
                     <h3 className={classes.heading}>出発地</h3>
+                    { 
+                        (props.validationError && (
+                            props.validationError.type === 'NOT_FOUND_DEPATURE' 
+                        )) ? <ErrorText text={props.validationError.message} /> : null
+                    }
                     <div>
                         <Radio 
                             labelName="現在地" 

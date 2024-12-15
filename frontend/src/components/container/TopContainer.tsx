@@ -1,6 +1,6 @@
 import TopTemplate from "../presantation/top/Template/TopTemplate";
 import { Purpose, Context, purposeState, prefectureState, PlanRequestBody, PlanDetailsResponse } from "../types/types";
-import { ActiveTime, Location, PurposeItem, Spot, TripDateTime } from "../types/v2Types";
+import { ActiveTime, Location, PurposeItem, Spot, TripDateTime, ValidationError } from "../types/v2Types";
 import { getTodayDate, initalActiveTime, initialPurposes, prefecturesData } from "../../data/initialData";
 import React, { useContext, useState } from "react";
 import { useFetchSpots } from "../../hooks/useFetchSpots";
@@ -25,6 +25,7 @@ const TopContainer = () => {
   const { data, isError, inputSpotValue, handleInputChange, handleSubmit } = useFetchSpots();
   const { setDispathPhoto, state } = usePlanContext();
   const { setSearchSpots } = useSearchSpotContext();
+  const [validationError, setValidationError] = useState<ValidationError | null>(null);
 
   const navigate = useNavigate();
 
@@ -146,7 +147,12 @@ const TopContainer = () => {
     console.log("Click");
 
     if (!location || address.length < 0) {
-      console.warn("出発地が東京のままです。");
+      console.warn("出発地が設定されていません！");
+      setValidationError({
+        type: 'NOT_FOUND_DEPATURE',
+        message: '出発地は現在地か出発地の住所を設定する必要があります！'
+      })
+      return false;
     }
 
     const spotName = !location ? (!address ? "東京都" : address) : "自宅";
@@ -173,10 +179,41 @@ const TopContainer = () => {
 
     const purposeList = purposes.filter((purpose) => purpose.checked).map((purpose) => purpose.value);
 
+    if (purposeList.length === 0) {
+      console.error('目的が1つも選択されていません！')
+      setValidationError({
+        type: 'NOT_FOUND_PUREPORSES',
+        message: '目的は1つ以上選択する必要があります！'
+      })
+      return false;
+    }
+
 		if (purposeList.length > 3) {
 			console.error('目的は3つまでしか選択できません')
-			return 
+      setValidationError({
+        type: 'TOO_MANY_PURPOSES',
+        message: '目的は最大3つまでしか選択できません！'
+      })
+			return false
 		}
+
+    if (selectSpots.length === 0) {
+			console.error('行きたい場所が１つも選択されていません！')
+      setValidationError({
+        type: 'NOT_FOUND_WANTED_PLACE',
+        message: '行きたい場所が１つも選択されていません！'
+      })
+			return false;
+    }
+
+    if (selectSpots.length > 3) {
+			console.error('行きたい場所は最大3つまでしか選択できません！')
+      setValidationError({
+        type: 'TOO_MANY_WANTED_PLACE',
+        message: '行きたい場所は最大3つまでしか選択できません！'
+      })
+			return false;
+    }
 
     const tripDateTimes: TripDateTime[] = activeTimes.map((activeTime) => {
       const startTime = `${activeTime.start.hour}:${activeTime.start.minute}`;
@@ -196,7 +233,7 @@ const TopContainer = () => {
         returnDay: tripDate.destinationsAt,
       },
       transitWay: "CAR",
-      area: "福岡",
+      area: undefined,
       condition: {
         wantedDo: purposeList,
         eating: [],
@@ -242,6 +279,7 @@ const TopContainer = () => {
       depatureAt={depatureAt}
       onRadioChange={handleRadioChange}
       onAddressChange={handleAddress}
+      validationError={validationError}
     />
   );
 };
