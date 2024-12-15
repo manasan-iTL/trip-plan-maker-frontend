@@ -3,6 +3,7 @@ import { Title, Radio, Tab, FixedPointCard, WayPointCard, Button } from "../../.
 import { IoIosArrowBack } from "react-icons/io"
 import classes from "./SpotDetailTemplate.module.css"
 import { DetailTemplateProps, PlaceDetailResponse, Spot } from "../../../types/v2Types"
+import defalutSrc from '/no_image_logo.png'
 
 const SpotDetailTemplate = (props: DetailTemplateProps) => {
     const navigate = useNavigate()
@@ -25,33 +26,9 @@ const SpotDetailTemplate = (props: DetailTemplateProps) => {
                         <Title>{spot.spotName}</Title>
                     </div>
                     <div className={classes.pictureContainer}>
-                        <img src={spot.spotImgSrc} alt="" className={classes.picture} />
+                        <img src={spot.spotImgSrc.length === 0 ? defalutSrc : spot.spotImgSrc} alt="" className={classes.picture} />
                     </div>
                 </div>
-                <section>
-                    <h3>出発時間・滞在時間の変更</h3>
-                    <div className={classes.infoContainer}>
-                        <dl className={classes.inputBox}>
-                            <dt className={classes.labelConitainer}>
-                                <label className={classes.label} htmlFor="出発">出発時間</label>
-                            </dt>
-                            <dd className={classes.inputContainer}>
-                                <input id="出発" type="time" className={classes.input} value="11:00" />
-                            </dd>
-                        </dl>
-                        <dl className={classes.inputBox}>
-                            <dt className={classes.labelConitainer}>
-                                <label className={classes.label} htmlFor="滞在">滞在時間</label>
-                            </dt>
-                            <dd className={classes.inputContainer}>
-                                <input id="滞在" type="number" value={2} className={classes.input} /><span className={classes.smallSpace}>時間</span>
-                            </dd>
-                        </dl>
-                        <Button buttonStyles={{width: "70%"}} containerStyles={{textAlign: "center"}} onClick={() => console.log("Click")}>
-                    時間を変更する
-                </Button>
-                    </div>
-                </section>
                 <section>
                     <h3 className={classes.heading}>詳細情報</h3>
                     <ul className={classes.listInfo}>
@@ -65,9 +42,12 @@ const SpotDetailTemplate = (props: DetailTemplateProps) => {
                         </li>
                         <li className={classes.infoLine}>
                             <p>営業時間</p>
-                            { spot.regularOpeningHours.weekdayDescriptions.map(weekday => (
-                                <li>{weekday}</li>
-                            )) 
+                            { 
+                                spot.regularOpeningHours ?
+                                spot.regularOpeningHours.weekdayDescriptions.map(
+                                    weekday => (<li>{weekday}</li>)
+                                ):
+                                "営業時間の情報を取得できませんでした。" 
                             }
                         </li>
                         <li className={classes.infoLine}>

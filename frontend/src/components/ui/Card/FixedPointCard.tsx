@@ -21,9 +21,13 @@ const FixedPointCard = (props: Props) => {
             </div>
             <div className={classes.spot}>
                 <p className={classes.text}>{props.spotName}</p>
-                <Button buttonStyles={{ ...props.buttonStyles, width: "80%"}} onClick={props.onClick}>
-                    { props.text }
-                </Button>
+                {
+                    props.spotName === '自宅' ?
+                    null :
+                    <Button buttonStyles={{ ...props.buttonStyles, width: "80%"}} onClick={props.onClick}>
+                        { props.text }
+                    </Button>
+                }
             </div>
         </div>
     )
