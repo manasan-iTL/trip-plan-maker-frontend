@@ -27,7 +27,6 @@ const SearchAreaForm = (props: Props) => {
               <SpotCard
                 {...spot}
                 onClick={(e: React.MouseEvent<HTMLButtonElement>) => props.handleReduceSpot(e, spot.spotName)}
-                imgSize={{ height: "70px" }}
                 text="取り消す"
                 buttonStyles={{ backgroundColor: "red" }}
                 key={spot.spotName}

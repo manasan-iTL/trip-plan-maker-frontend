@@ -7,7 +7,7 @@ type Props = Spot &
      { 
         buttonStyles?: React.CSSProperties
         text: string
-        imgSize: React.CSSProperties; 
+        imgSize?: React.CSSProperties; 
         onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
     }
 
