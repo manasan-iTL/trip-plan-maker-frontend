@@ -1,11 +1,12 @@
 import React, { useState } from "react"
 import { useSearchSpotContext } from "../../hooks/context/searchSpotContext"
 import SearchList from "../presantation/searchList/template/SearchListTemplate"
-import { Extrack, RouteSpot, Spot, v2PlanDetailResponse, v2RoutesReq } from "../types/v2Types" 
+import { ApiError, ErrorResponse, Extrack, RouteSpot, Spot, v2PlanDetailResponse, v2RoutesReq, ValidationError } from "../types/v2Types" 
 import { postFetcher } from "../../hooks/fetcher"
 import { BASE_URL, convertJapaneseToType, PlaceType } from "../../data/constant"
 import { useV2PlanContext } from "../../hooks/context/v2PlanContext"
 import { useNavigate } from "react-router-dom"
+import axios, { AxiosError } from "axios"
 
 
 
@@ -16,6 +17,9 @@ const SearchSpotContainer = () => {
 
     const { state } = useSearchSpotContext();
     const newCombineSpots = state.combineSpots.concat()
+    const [validationError, setValidationError] = useState<ValidationError | null>(null)
+    const [apiError, setApiError] = useState<ApiError | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const navigate = useNavigate()
 
@@ -45,27 +49,21 @@ const SearchSpotContainer = () => {
 
     async function createPlan() {
 
+        setIsLoading(true)
         const [selectedPlan] = state.combineSpots.filter(plan => plan.theme === selectPlan)
+
+        if (!selectedPlan || !('places' in selectedPlan)) {
+            console.error('テーマを選択してください！')
+            setIsLoading(false)
+            setValidationError({
+                type: 'NOT_FOUND_THEME',
+                message: 'テーマを1つだけ選択してください！'
+            })
+        }
+
         const spots = selectedPlan.places
 
-        // const origin: Spot = {
-        //     place_id: "CHILL_DEPATURE",
-        //     spotName: "出発地",
-        //     spotImgSrc: "",
-        //     spotImgAlt: "",
-        //     types: ["DEPATURE"],
-        //     location:{"latitude":35.6912212009455,"longitude":139.73552448046175},
-        //     rating: 0,
-        //     userRatingCount: 0,
-        //     formattedAddress: "出発地",
-        //     photoReference: {
-        //         name: "",
-        //         heightPx: 0,
-        //         widthPx: 0
-        //     }
-        // }
-
-        const destination: Spot = spots.filter(spot => spot.types.includes("HOTEL"))[0];
+        const destination: Spot = spots.filter(spot => spot.types.includes(PlaceType.hotel))[0];
 
         const wayPoints: Spot[] = spots.filter(spot => spot.place_id !== destination.place_id)
 
@@ -87,10 +85,34 @@ const SearchSpotContainer = () => {
 
             setDispatchV2Plan(response.data)
 
+            setIsLoading(false)
             navigate("../plan", { state: response.data })
         } catch (error) {
             console.log(error)
+            setIsLoading(false)
+
+            if (axios.isAxiosError(error)) {
+                const apiError = error as AxiosError<ErrorResponse>
+        
+                if (apiError.response && apiError.response.data) {
+                  setApiError({
+                    type: 'NOT_FOUND_PLAN',
+                    message: apiError.response.data.message
+                  })
+        
+                  return false;
+                }
+              }
+
+            setApiError({
+                type: 'NOT_FOUND_PLAN',
+                message: 'プランが生成できませんでした。条件を変えてお試しください。'
+            })
         }
+    }
+
+    const closeApiErrorDialog = () => {
+        setApiError(null)
     }
 
     return (
@@ -100,6 +122,10 @@ const SearchSpotContainer = () => {
             selectedValue={selectPlan}
             onChange={handleInputChange}
             onSubmit={createPlan}
+            isApiError={apiError}
+            isLoading={isLoading}
+            closeErrorDialog={closeApiErrorDialog}
+            validationError={validationError}
         />
     )
 }
