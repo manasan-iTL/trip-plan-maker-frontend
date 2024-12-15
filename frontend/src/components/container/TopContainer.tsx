@@ -1,16 +1,16 @@
 import TopTemplate from "../presantation/top/Template/TopTemplate";
-import { Purpose, Context, purposeState, prefectureState, PlanRequestBody, PlanDetailsResponse } from "../types/types";
-import { ActiveTime, Location, PurposeItem, Spot, TripDateTime, ValidationError } from "../types/v2Types";
+import { ActiveTime, ApiError, ErrorResponse, Location, PurposeItem, Spot, TripDateTime, ValidationError } from "../types/v2Types";
 import { getTodayDate, initalActiveTime, initialPurposes, prefecturesData } from "../../data/initialData";
 import React, { useContext, useState } from "react";
 import { useFetchSpots } from "../../hooks/useFetchSpots";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import { postFetcher } from "../../hooks/fetcher";
+import { fetcher, postFetcher } from "../../hooks/fetcher";
 import { BASE_URL } from "../../data/constant";
 import { usePlanContext } from "../../hooks/context/planContext";
 import { SearchSpotsRequestBody, SearchSpotsResponseBody } from "../types/v2Types";
 import { useSearchSpotContext } from "../../hooks/context/searchSpotContext";
 import { calculateTotalDays } from "../../util/date";
+import axios, { AxiosError } from "axios";
 
 const TopContainer = () => {
   const [selectSpots, setSelectSpots] = useState<Spot[]>([]);
@@ -21,16 +21,38 @@ const TopContainer = () => {
   const [location, setLocation] = useState<Location | null>(null);
   const [address, setAddress] = useState<string>("");
   const [depatureAt, setDepatureAt] = useState<string | null>(null);
+  
+  const [spotsData, setSpotsData] = useState<Spot[]>([]);
+  const [isSearchSpotError, setIsSearchSpotError] = useState(false)
+  const [inputSpotValue, setInputSpotValue] = useState<string>("")
 
-  const { data, isError, inputSpotValue, handleInputChange, handleSubmit } = useFetchSpots();
   const { setDispathPhoto, state } = usePlanContext();
   const { setSearchSpots } = useSearchSpotContext();
   const [validationError, setValidationError] = useState<ValidationError | null>(null);
+  const [apiError, setApiError] = useState<ApiError | null>(null);
 
   const navigate = useNavigate();
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setInputSpotValue(e.target.value)
+  }
+
+  const handleSubmit = async () => {
+    const URL = `${BASE_URL}/api/spots/?keyword=${inputSpotValue}`
+
+    try {
+      const response = await fetcher<Spot[]>(URL);
+      setSpotsData(response);
+      setInputSpotValue('')
+    } catch (error) {
+      console.log(error)
+      setIsSearchSpotError(true)
+      setInputSpotValue('')
+    }
+  }
+
   const handleAddSpot = (e: React.MouseEvent<HTMLButtonElement>, spotName: string) => {
-    const selectSpot = data?.filter((spot: Spot) => spot.spotName === spotName);
+    const selectSpot = spotsData?.filter((spot: Spot) => spot.spotName === spotName);
     if (typeof selectSpot === "undefined") return;
     setSelectSpots((preveState) => [...preveState, ...selectSpot]);
   };
@@ -146,7 +168,7 @@ const TopContainer = () => {
   const handleClickNextPage = async () => {
     console.log("Click");
 
-    if (!location || address.length < 0) {
+    if (!location && address.length < 0) {
       console.warn("出発地が設定されていません！");
       setValidationError({
         type: 'NOT_FOUND_DEPATURE',
@@ -242,8 +264,6 @@ const TopContainer = () => {
       activeTimes: tripDateTimes,
     };
 
-    console.log(newBody);
-
     try {
       const result2 = await postFetcher<SearchSpotsRequestBody, SearchSpotsResponseBody>(
         BASE_URL + "/api/v2/spots",
@@ -254,17 +274,44 @@ const TopContainer = () => {
       navigate("./search");
     } catch (error) {
       console.log(error);
+      if (axios.isAxiosError(error)) {
+        const apiError = error as AxiosError<ErrorResponse>
+
+        if (apiError.response && apiError.response.data) {
+          setApiError({
+            type: 'NOT_FOUND_THEME',
+            message: apiError.response.data.message
+          })
+
+          return false;
+        }
+      }
+
+      setApiError({
+        type: 'NOT_FOUND_THEME',
+        message: 'テーマの生成ができませんでした。再度お試しください。'
+      })
+
+      return false
     }
   };
+
+  const closeSeachSpotsErrorDialog = () => {
+    setIsSearchSpotError(false)
+  }
+
+  const closeApiErrorDialog = () => {
+    setApiError(null)
+  }
 
   return (
     <TopTemplate
       purposes={purposes}
       selectedCount={selectedCount}
-      spots={data}
+      spots={spotsData}
       spotValue={inputSpotValue}
       handleSearchValueChange={handleInputChange}
-      searchBtnClick={() => handleSubmit(inputSpotValue)}
+      searchBtnClick={ handleSubmit }
       handleAddSpot={handleAddSpot}
       handleReduceSpot={handleReduceSpot}
       selectSpots={selectSpots}
@@ -280,6 +327,10 @@ const TopContainer = () => {
       onRadioChange={handleRadioChange}
       onAddressChange={handleAddress}
       validationError={validationError}
+      isNetworkError={isSearchSpotError}
+      closeSearchSpotsErrorDialog={closeSeachSpotsErrorDialog}
+      isApiError={apiError}
+      closeApiError={closeApiErrorDialog}
     />
   );
 };
