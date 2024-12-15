@@ -30,6 +30,7 @@ const TopContainer = () => {
   const { setSearchSpots } = useSearchSpotContext();
   const [validationError, setValidationError] = useState<ValidationError | null>(null);
   const [apiError, setApiError] = useState<ApiError | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const navigate = useNavigate();
 
@@ -38,16 +39,19 @@ const TopContainer = () => {
   }
 
   const handleSubmit = async () => {
+    setIsLoading(true)
     const URL = `${BASE_URL}/api/spots/?keyword=${inputSpotValue}`
 
     try {
       const response = await fetcher<Spot[]>(URL);
       setSpotsData(response);
       setInputSpotValue('')
+      setIsLoading(false)
     } catch (error) {
       console.log(error)
       setIsSearchSpotError(true)
       setInputSpotValue('')
+      setIsLoading(false)
     }
   }
 
@@ -167,9 +171,11 @@ const TopContainer = () => {
 
   const handleClickNextPage = async () => {
     console.log("Click");
+    setIsLoading(true)
 
     if (!location && address.length < 0) {
       console.warn("出発地が設定されていません！");
+      setIsLoading(false)
       setValidationError({
         type: 'NOT_FOUND_DEPATURE',
         message: '出発地は現在地か出発地の住所を設定する必要があります！'
@@ -203,6 +209,7 @@ const TopContainer = () => {
 
     if (purposeList.length === 0) {
       console.error('目的が1つも選択されていません！')
+      setIsLoading(false)
       setValidationError({
         type: 'NOT_FOUND_PUREPORSES',
         message: '目的は1つ以上選択する必要があります！'
@@ -212,6 +219,7 @@ const TopContainer = () => {
 
 		if (purposeList.length > 3) {
 			console.error('目的は3つまでしか選択できません')
+      setIsLoading(false)
       setValidationError({
         type: 'TOO_MANY_PURPOSES',
         message: '目的は最大3つまでしか選択できません！'
@@ -221,6 +229,7 @@ const TopContainer = () => {
 
     if (selectSpots.length === 0) {
 			console.error('行きたい場所が１つも選択されていません！')
+      setIsLoading(false)
       setValidationError({
         type: 'NOT_FOUND_WANTED_PLACE',
         message: '行きたい場所が１つも選択されていません！'
@@ -230,6 +239,7 @@ const TopContainer = () => {
 
     if (selectSpots.length > 3) {
 			console.error('行きたい場所は最大3つまでしか選択できません！')
+      setIsLoading(false)
       setValidationError({
         type: 'TOO_MANY_WANTED_PLACE',
         message: '行きたい場所は最大3つまでしか選択できません！'
@@ -271,9 +281,12 @@ const TopContainer = () => {
       );
       console.log(result2);
       setSearchSpots(result2.data);
+      setIsLoading(false)
       navigate("./search");
     } catch (error) {
       console.log(error);
+      setIsLoading(false)
+
       if (axios.isAxiosError(error)) {
         const apiError = error as AxiosError<ErrorResponse>
 
@@ -331,6 +344,7 @@ const TopContainer = () => {
       closeSearchSpotsErrorDialog={closeSeachSpotsErrorDialog}
       isApiError={apiError}
       closeApiError={closeApiErrorDialog}
+      isLoading={isLoading}
     />
   );
 };

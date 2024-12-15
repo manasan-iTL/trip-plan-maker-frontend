@@ -11,6 +11,7 @@ import Header from "../../../ui/Header/Header"
 import ErrorText from "../../../ui/Text/ErrorText"
 import { AxiosError } from "axios"
 import ErrorDialog from "../../../ui/Dialog/ErrorDialog"
+import LoadingDialog from "../../../ui/Dialog/LoadingDialog"
 
 interface Props {
     purposes: PurposeItem[];
@@ -37,7 +38,8 @@ interface Props {
     isNetworkError: boolean,
     closeSearchSpotsErrorDialog: () => void,
     isApiError: ApiError | null,
-    closeApiError: () => void
+    closeApiError: () => void,
+    isLoading: boolean
 }
 
 const TopTemplate = (props: Props) => {
@@ -45,7 +47,6 @@ const TopTemplate = (props: Props) => {
     return (
         <div>
             {/** ネットワークエラーの処理 */}
-
             { 
              props.isNetworkError && 
              <ErrorDialog 
@@ -62,6 +63,11 @@ const TopTemplate = (props: Props) => {
                     message={props.isApiError.message}
                     onClose={props.closeApiError}
                 />
+            }
+
+            {/** ローディング */}
+            {
+                props.isLoading && <LoadingDialog isOpen={props.isLoading} message="テーマを生成中です。"/>
             }
 
             <Header />
