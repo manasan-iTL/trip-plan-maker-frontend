@@ -16,7 +16,7 @@ const TopContainer = () => {
   const [selectSpots, setSelectSpots] = useState<Spot[]>([]);
   const [purposes, setPurposes] = useState<PurposeItem[]>(initialPurposes);
   const [tripDate, setTripDate] = useState<TripDateTime>(getTodayDate());
-  const [activeTimes, setActiveTimes] = useState<ActiveTime[]>([initalActiveTime]);
+  const [activeTimes, setActiveTimes] = useState<ActiveTime[]>(initalActiveTime);
   // COMMENT: 緯度経度の情報を持つ（最初はnull）
   const [location, setLocation] = useState<Location | null>(null);
   const [address, setAddress] = useState<string>("");

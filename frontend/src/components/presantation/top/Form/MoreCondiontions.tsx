@@ -15,7 +15,7 @@ interface Props {
 const MoreConditions: React.FC<Props> = ({ tripDate, activeTimes, onDateInputChange, onDateSelectChange }) => {
   return (
     <div className={classes.container}>
-      <AccordionItem categoryName="より詳細な条件を追加する">
+      <AccordionItem categoryName="旅行の日程を設定する">
         <div className={classes.inputArea}>
           <DateInput labelName="出発日" id="depatureAt" value={tripDate.depaturesAt} onChange={onDateInputChange} />
           <DateInput labelName="帰宅日" id="returnAt" value={tripDate.destinationsAt} onChange={onDateInputChange} />

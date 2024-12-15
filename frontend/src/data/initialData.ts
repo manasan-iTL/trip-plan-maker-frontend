@@ -182,23 +182,42 @@ export function getTodayDate() {
     const day = String(today.getDate()).padStart(2, '0')
     const date = `${year}-${month}-${day}`
 
+    const tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+    const tomorrowYear = String(tomorrow.getFullYear())
+    const tomorrowMonth = String(tomorrow.getMonth() + 1).padStart(2, '0')
+    const tomorrowDay = String(tomorrow.getDate()).padStart(2, '0')
+    const tomorrowDate = `${tomorrowYear}-${tomorrowMonth}-${tomorrowDay}`
+
     return {
         depaturesAt: date,
-        destinationsAt: date
+        destinationsAt: tomorrowDate
     }
 }
 
-export const initalActiveTime = {
-    key: "1日目",
-    start: {
-        hour: "08",
-        minute: "00"
+export const initalActiveTime = [
+    {
+        key: "1日目",
+        start: {
+            hour: "08",
+            minute: "00"
+        },
+        end: {
+            hour: "20",
+            minute: "00"
+        }
     },
-    end: {
-        hour: "20",
-        minute: "00"
+    {
+        key: "2日目",
+        start: {
+            hour: "08",
+            minute: "00"
+        },
+        end: {
+            hour: "20",
+            minute: "00"
+        }
     }
-}
+]
 
 export const HOURS = [...Array(24)].map((_, h) => String(h).padStart(2, "0"));
 export const MINUTES = [...Array(59)].map((_, m) => String(m).padStart(2, "0"));
