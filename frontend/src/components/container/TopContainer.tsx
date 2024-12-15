@@ -49,6 +49,15 @@ const TopContainer = () => {
       setIsLoading(false)
     } catch (error) {
       console.log(error)
+
+      if (axios.isAxiosError(error) && error.response) {
+        if (error.response.status === 403) {
+          setInputSpotValue('')
+          setIsLoading(false)
+          navigate('./errors')
+        }
+      }
+
       setIsSearchSpotError(true)
       setInputSpotValue('')
       setIsLoading(false)
@@ -291,6 +300,12 @@ const TopContainer = () => {
         const apiError = error as AxiosError<ErrorResponse>
 
         if (apiError.response && apiError.response.data) {
+
+          if (apiError.response.status === 403) {
+            console.log('利用上限回数に達しました！')
+            navigate('./errors')
+          }
+
           setApiError({
             type: 'NOT_FOUND_THEME',
             message: apiError.response.data.message

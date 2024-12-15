@@ -93,6 +93,13 @@ const SearchSpotContainer = () => {
 
             if (axios.isAxiosError(error)) {
                 const apiError = error as AxiosError<ErrorResponse>
+
+                if (axios.isAxiosError(error) && error.response) {
+                    if (error.response.status === 403) {
+                      setIsLoading(false)
+                      navigate('./errors')
+                    }
+                  }
         
                 if (apiError.response && apiError.response.data) {
                   setApiError({

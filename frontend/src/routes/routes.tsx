@@ -1,6 +1,7 @@
 import { Outlet, ScrollRestoration, createBrowserRouter } from "react-router-dom";
 import { PlanPage, PurposePage, TopPage, SpotDetailPage, SearchSpotPage } from "../components/container";
 import { getSpotDetail } from "./loader/spotDetail";
+import ErrorPage from "../components/container/ErrorPage";
 
 const Layout = () => {
     return (
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
                     }
                 ]   
             },
+            {
+                path: '/errors',
+                element: <ErrorPage />
+            }
         ]
     }
 ])
