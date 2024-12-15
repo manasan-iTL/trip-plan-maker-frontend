@@ -275,3 +275,13 @@ export interface ValidationError {
     type: ValidationErrorType,
     message: string
 }
+
+export interface ApiError {
+    type: 'NETWORK_ERROR' | 'NOT_FOUND_THEME' | 'NOT_FOUND_PLAN',
+    message: string
+}
+
+export interface ErrorResponse {
+    success: boolean,
+    message: string
+}
