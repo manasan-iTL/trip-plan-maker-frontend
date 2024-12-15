@@ -10,6 +10,7 @@ import PlanHeader from "../Area/PlanHeader"
 import DayPlan from "../Area/DayPlan"
 import { convertDayFormat } from "../../../../util/convertDayFormat"
 import { v2Plan } from "../../../types/v2Types"
+import Header from "../../../ui/Header/Header"
 
 interface Props {
     basicInfo: BasicInfo,
@@ -22,10 +23,11 @@ interface Props {
 const PlanTemplate = (props: Props) => {
     return (
         <div>
+            <Header />
             { 
                 props.plan && props.basicInfo && props.basicInfo.startDay && props.basicInfo.endDay? (
                 <main className={classes.container}>
-                    <Title>旅行プランを編集する</Title>
+                    <Title>推薦する旅行プラン</Title>
                     <div className={classes.infoContainer}>
                         <dl className={classes.inputBox}>
                             <dt className={classes.labelConitainer}>
@@ -50,11 +52,8 @@ const PlanTemplate = (props: Props) => {
                             handleTabActive={props.handleTabActive}
                             indexLength={props.plan.length} 
                         />
-                        < DayPlan dayPlan={props.plan[props.activeIndex]} navigate={props.navigate}/>
+                        <DayPlan dayPlan={props.plan[props.activeIndex]} navigate={props.navigate}/>
                     </div>
-                    <Button buttonStyles={{ width: "70%" }} containerStyles={{ textAlign: "center" }} onClick={() => props.navigate("confirm")}>
-                        プランを確定する
-                    </Button>
                 </main>)
                 : (<div>Loading・・・</div>)
             }

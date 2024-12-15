@@ -23,11 +23,6 @@ const PlanHeader = (props: Props) => {
                     />
                 )) }
             </div>
-            <div>
-                <button className={classes.plusIconButton}>
-                    <LuPlusCircle size={"30px"} />
-                </button>
-            </div>
         </div>
     </section>
     )
