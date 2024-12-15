@@ -8,7 +8,7 @@ import ErrorText from "../../../ui/Text/ErrorText";
 interface Props {
   spotValue: string;
   handleSearchValueChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  searchBtnClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  searchBtnClick: (e: React.MouseEvent<HTMLButtonElement>) => Promise<void>;
   spots: Spot[] | undefined;
   handleAddSpot: (e: React.MouseEvent<HTMLButtonElement>, spotName: string) => void;
   selectSpots: Spot[] | undefined;
@@ -22,7 +22,7 @@ const SearchAreaForm = (props: Props) => {
       <div>
         <h2 className={classes.heading}>行きたい場所</h2>
         { props.error && <ErrorText text={props.error}/> }
-        
+
         <div className={classes.spotsArea}>
           {!props.selectSpots?.length ? (
             <EmptyCard text="１つ以上は選択してください" iconNumber={1} />

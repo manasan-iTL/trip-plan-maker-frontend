@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import PurposeForm from "../Form/PurposeForm"
 import { Accordion, TabActive } from "../../../types/types"
-import { ActiveTime, Location, PurposeItem, Spot, TripDateTime, ValidationError } from "../../../types/v2Types"
+import { ActiveTime, ApiError, Location, PurposeItem, Spot, TripDateTime, ValidationError } from "../../../types/v2Types"
 import TravelSpots from "../Box/TravelSpots"
 import SearchAreaForm from "../Form/SearchAreaForm"
 import classes from "./TopTemplate.module.css"
@@ -9,6 +9,8 @@ import MoreConditions from "../Form/MoreCondiontions"
 import { Button, Radio, TextInput, Title } from "../../../ui"
 import Header from "../../../ui/Header/Header"
 import ErrorText from "../../../ui/Text/ErrorText"
+import { AxiosError } from "axios"
+import ErrorDialog from "../../../ui/Dialog/ErrorDialog"
 
 interface Props {
     purposes: PurposeItem[];
@@ -17,7 +19,7 @@ interface Props {
     spots: Spot[] | undefined;
     spotValue: string;
     handleSearchValueChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    searchBtnClick: (e: React.MouseEvent<HTMLButtonElement>) => void
+    searchBtnClick: (e: React.MouseEvent<HTMLButtonElement>) => Promise<void>
     handleChangePurposeCheckbox: (value: string) => void;
     handleAddSpot: (e: React.MouseEvent<HTMLButtonElement>, spotName: string) => void;
     handleReduceSpot: (e: React.MouseEvent<HTMLButtonElement>, spotName: string) => void;
@@ -32,12 +34,36 @@ interface Props {
     onRadioChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     onAddressChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
     validationError: ValidationError | null,
+    isNetworkError: boolean,
+    closeSearchSpotsErrorDialog: () => void,
+    isApiError: ApiError | null,
+    closeApiError: () => void
 }
 
 const TopTemplate = (props: Props) => {
 
     return (
         <div>
+            {/** ネットワークエラーの処理 */}
+
+            { 
+             props.isNetworkError && 
+             <ErrorDialog 
+                title="テーマの生成に失敗しました"
+                message="原因： インターネット接続が不安定です。" 
+                onClose={props.closeSearchSpotsErrorDialog}
+            /> 
+            }
+
+            {
+                props.isApiError && 
+                <ErrorDialog 
+                    title="テーマの生成に失敗しました。"
+                    message={props.isApiError.message}
+                    onClose={props.closeApiError}
+                />
+            }
+
             <Header />
             <main className={classes.container}>
                 <Title>旅行プランを作成する</Title>

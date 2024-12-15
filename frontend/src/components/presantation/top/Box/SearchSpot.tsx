@@ -7,7 +7,7 @@ interface Props {
     inputValue: string;
     spots: Spot[] | undefined;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    searchBtnClick: (e: React.MouseEvent<HTMLButtonElement>) => void
+    searchBtnClick: (e: React.MouseEvent<HTMLButtonElement>) => Promise<void>
     handleAddSpot: (e: React.MouseEvent<HTMLButtonElement>, spotName: string) => void
 }
 
