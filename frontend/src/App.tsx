@@ -10,7 +10,8 @@ function App() {
     <PlanContextProvider>
       <V2PlanContextProvider>
       <SearchSpotContextProvider>
-        <RouterProvider router={router}/>
+        <RouterProvider router={router}>
+        </RouterProvider>
       </SearchSpotContextProvider>
       </V2PlanContextProvider>
     </PlanContextProvider>
