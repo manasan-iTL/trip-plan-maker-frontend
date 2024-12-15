@@ -1,5 +1,5 @@
 
-export const BASE_URL = "http://localhost:8000"
+export const BASE_URL = import.meta.env.VITE_APP_API_ENDPOINT;
 
 export const PlaceType = {
     hotel: "HOTEL",
