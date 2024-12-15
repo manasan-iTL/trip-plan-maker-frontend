@@ -4,15 +4,16 @@ import { fetcher } from "./fetcher"
 import { Spot } from "../components/types/v2Types"
 import { BASE_URL } from "../data/constant"
 import React, { useState } from "react"
+import { AxiosError } from "axios"
 
 export function useFetchSpots() {
 
     const [inputSpotValue, setInputSpotValue] = useState<string>("")
     const [ queryKey, setQueryKey ] = useState<string>("")
 
-    const url: string | null = !queryKey? null : BASE_URL + queryKey
+    // const url: string | null = !queryKey? null : BASE_URL + queryKey
 
-    const { data, error } = useSWR<Spot[]>(url, fetcher)
+    const { data, error, trigger } = useSWRMutation<Spot[], AxiosError>('/api/spots/', fetcher)
 
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,6 +33,7 @@ export function useFetchSpots() {
         isError: error,
         handleInputChange,
         handleSubmit,
-        inputSpotValue
+        inputSpotValue,
+        trigger
     }
 }
