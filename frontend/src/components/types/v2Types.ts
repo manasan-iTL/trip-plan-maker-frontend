@@ -257,3 +257,21 @@ export interface Purpose {
     titleName: string,
     childItem: PurposeItem
 }
+
+/**
+ * 
+ * エラー系の型定義
+ */
+
+export type ValidationErrorType = 
+    'NOT_FOUND_WANTED_PLACE' |
+    'TOO_MANY_WANTED_PLACE' |
+    'NOT_FOUND_PUREPORSES' |
+    'TOO_MANY_PURPOSES' |
+    'NOT_FOUND_DEPATURE' |
+    'NOT_FOUND_THEME'
+
+export interface ValidationError {
+    type: ValidationErrorType,
+    message: string
+}
