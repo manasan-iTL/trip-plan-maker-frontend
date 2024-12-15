@@ -52,7 +52,7 @@ const PlanTemplate = (props: Props) => {
                             handleTabActive={props.handleTabActive}
                             indexLength={props.plan.length} 
                         />
-                        <DayPlan dayPlan={props.plan[props.activeIndex]} navigate={props.navigate}/>
+                        <DayPlan dayPlan={props.plan[props.activeIndex]} navigate={props.navigate} activeIndex={props.activeIndex}/>
                     </div>
                 </main>)
                 : (<div>Loading・・・</div>)

@@ -8,7 +8,8 @@ import { extrackPlaceId } from "../../../../util/extrackPlaceId";
 
 interface Props {
     navigate: NavigateFunction;
-    route: v2SpotCard
+    route: v2SpotCard;
+    activeIndex: number
 }
 
 const RouteSpot = (props: Props) => {
@@ -44,6 +45,7 @@ const RouteSpot = (props: Props) => {
                 text="詳細"
                 imgSize={{ height: "70px" }}
                 onClick={() => props.navigate(`spots/${placeId}`)}
+                activeIndex={props.activeIndex}
             />
             :
             <FixedPointCard

@@ -7,14 +7,15 @@ import { v2DayPlan } from "../../../types/v2Types"
 
 interface Props {
     dayPlan: v2DayPlan,
-    navigate: NavigateFunction
+    navigate: NavigateFunction,
+    activeIndex: number,
 }
 
 const DayPlan = (props: Props) => {
     return (
         <section className={classes.virtualRoutesContainer}>
             {props.dayPlan.Routes.map((route) => (
-                route.category === "SPOT"? <RouteSpot route={route} navigate={props.navigate}/>
+                route.category === "SPOT"? <RouteSpot route={route} navigate={props.navigate} activeIndex={props.activeIndex}/>
                                          : <RouteTraffic route={route}/>
             ) )}
         </section>
