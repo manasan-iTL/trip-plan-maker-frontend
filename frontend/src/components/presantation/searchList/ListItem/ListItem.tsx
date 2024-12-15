@@ -1,3 +1,4 @@
+import { convertJapaneseToType, PlaceType } from "../../../../data/constant";
 import { Extrack, RecommendCombinedSpots, Spot } from "../../../types/v2Types"
 import AccordionWithComponent from "../../../ui/Accordion/AccordionWithComponent";
 import classes from "./ListItem.module.css"
@@ -7,20 +8,25 @@ interface Props {
     indexNumber: number;
     extrackList: Extrack[];
     selectedValue: string;
+    theme: string,
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const ListItem = ({ spots, indexNumber, extrackList, selectedValue, onChange }: Props) => {
+const ListItem = ({ spots, indexNumber, extrackList, selectedValue, onChange, theme }: Props) => {
 
-    const eatingSpots = spots.filter(spot => spot.types.includes("restaurant"))
-    const hotelSpots = spots.filter(spot => ["spa","hotel"].some(type => spot.types.includes(type)))
-    const recommendSpots = spots.filter(spot => ["tourist_attraction", "point_of_interest"].some(type => spot.types.includes(type)))
+    const eatingSpots = spots.filter(spot => spot.types.includes(PlaceType.eating))
+    const hotelSpots = spots.filter(spot => spot.types.includes(PlaceType.hotel))
+    const recommendSpots = spots.filter(spot => {
+        const splitThemes = theme.split('/');
+        const convertType = splitThemes.map(jaTheme => convertJapaneseToType(jaTheme))
+        return convertType.some(type => spot.types.includes(type))
+    })
 
     
     return (
         <div className={classes.container}>
             <AccordionWithComponent 
-                title={`テーマ${indexNumber + 1}: `} 
+                title={`テーマ${indexNumber + 1}:`} 
                 extrack={extrackList[indexNumber]}
                 selectedValue={selectedValue}
                 onChange={onChange}

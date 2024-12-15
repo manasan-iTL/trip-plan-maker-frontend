@@ -14,7 +14,6 @@ interface Props {
 
 const SearchList = ({ searchSpots, extrackList, selectedValue, onChange, onSubmit }: Props) => {
 
-    console.log(searchSpots)
     return (
         <div>
             <Header />
@@ -28,6 +27,7 @@ const SearchList = ({ searchSpots, extrackList, selectedValue, onChange, onSubmi
                             searchSpots.combineSpots.map((spots, index) => 
                             <ListItem 
                                 spots={spots.places} 
+                                theme={spots.theme}
                                 indexNumber={index} 
                                 extrackList={extrackList} 
                                 selectedValue={selectedValue}

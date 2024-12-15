@@ -26,7 +26,10 @@ const SearchSpotContainer = () => {
     const extrackList: Extrack[] = newCombineSpots.map(spots => {
         const eatingSpots = spots.places.filter(spot => spot.types.includes(PlaceType.eating))
         const hotelSpots = spots.places.filter(spot => spot.types.includes(PlaceType.hotel))
-        const recommendSpots = spots.places.filter(spot => spot.types.includes(convertJapaneseToType(spots.theme)))
+        const recommendSpots = spots.places.filter(spot => {
+            const splitTheme = spots.theme.split('/')[0];
+            return spot.types.includes(convertJapaneseToType(splitTheme))
+        })
 
         return {
             theme: spots.theme,
