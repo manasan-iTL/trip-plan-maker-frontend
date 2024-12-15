@@ -21,7 +21,6 @@
     outline: 3px solid #4c9ac0;
     outline-offset: 0.5em;
     position: relative;
-    width: 100%;
   }
 
 .heading::after {
