@@ -14,7 +14,9 @@
     width: 100%;
     border-radius: 5px;
     border: 2px solid rgba(51, 51, 51, 0.70);
-    padding: 5px;
+    height: 10px; /* 高さを設定 */
+    padding: 10px; /* 内側の余白 */
+    font-size: 14px; /* 文字サイズ */
 }
 
 .input[type="text"]:focus {

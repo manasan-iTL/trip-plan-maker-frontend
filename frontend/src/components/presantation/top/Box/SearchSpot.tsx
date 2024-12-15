@@ -17,7 +17,7 @@ const SearchSpot = (props: Props) => {
         <div className={classes.container}>
             <div>
                 <p className={classes.labelArea}>
-                    <label className={classes.heading}>行きたい場所</label>
+                    <label className={classes.heading}>場所検索</label>
                     <span className={classes.subText}>例　東京スカイツリー</span>
                 </p>
                 <SearchInput value={props.inputValue} iconSize="20px" onChange={props.onChange} onClick={props.searchBtnClick}/>

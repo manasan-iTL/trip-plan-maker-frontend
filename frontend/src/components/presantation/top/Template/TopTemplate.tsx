@@ -46,13 +46,15 @@ const TopTemplate = (props: Props) => {
                 />
                 <div className={classes.travelSpotsArea}>
                     { /*  行きたいエリアカードを表示する　選択されたエリアはコンテナ層で計算した値を渡す  */ }
-                    <TravelSpots selectSpots={props.selectSpots} handleReduceSpot={props.handleReduceSpot}/>
+                    {/* <TravelSpots selectSpots={props.selectSpots} handleReduceSpot={props.handleReduceSpot}/> */}
                     <SearchAreaForm  
                         spotValue={props.spotValue}
                         spots={props.spots}
                         handleSearchValueChange={props.handleSearchValueChange}
                         searchBtnClick={props.searchBtnClick}
                         handleAddSpot={props.handleAddSpot}
+                        selectSpots={props.selectSpots}
+                        handleReduceSpot={props.handleReduceSpot}
                     />
                 </div>
                 <section className={classes.travelDepatureArea}>
