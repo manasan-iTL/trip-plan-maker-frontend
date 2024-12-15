@@ -41,7 +41,7 @@ const SearchList = ({ searchSpots, extrackList, selectedValue, onChange, onSubmi
             <Header />
             <main className={classes.container}>
                 <Title>
-                    候補プラン一覧
+                    テーマ一覧
                 </Title>
 
                 {/** バリデーションエラー */}
