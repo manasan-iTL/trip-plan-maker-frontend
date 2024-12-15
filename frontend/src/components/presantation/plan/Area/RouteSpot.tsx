@@ -15,19 +15,25 @@ const RouteSpot = (props: Props) => {
 
     const placeId = extrackPlaceId(props.route.spot.place_id)
 
+    const depatureAtSplit = props.route.departure_at.split(':')
+    const arrivedAtSplit = props.route.arrived_at.split(':')
+
+    const depatureAt = depatureAtSplit.length > 1? `${depatureAtSplit[0]}:${depatureAtSplit[1]}`: props.route.departure_at
+    const arrivedAt = arrivedAtSplit.length > 1? `${arrivedAtSplit[0]}:${arrivedAtSplit[1]}`: props.route.arrived_at
+
     return (
         <div className={classes.dayRoute}>
         <div className={classes.dayTimes}>
             { 
                 props.route.arrived_at &&  
                 <div className={classes.dayTime}>
-                    {props.route.arrived_at}
+                    {arrivedAt}
                 </div>
             }
             {
                 props.route.departure_at &&
                 <div className={classes.dayTime}>
-                    {props.route.departure_at}
+                    {depatureAt}
                 </div>
             }
         </div>
