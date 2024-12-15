@@ -17,10 +17,15 @@
 }
 
 .initial {
-    height: 0;
-    transition: all .1s ease;
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: all .4s ease;
+}
+
+.hidden {
+    overflow: hidden;
 }
 
 .open {
-    height: auto;
+    grid-template-rows: 1fr;
 }

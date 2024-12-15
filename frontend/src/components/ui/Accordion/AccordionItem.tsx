@@ -15,14 +15,21 @@ const AccordionItem = (props: Props) => {
         setIsOpen(preState => !preState)
     }
 
+    const containerClasses = `
+    ${classes.initial + " "}
+    ${isOpen? classes.open : ""}
+    `.trim()
+
     return (
         <section className={classes.container}>
             <div className={classes.titleArea} onClick={handleClick}>
                 <h4>{props.categoryName}</h4>
                 {isOpen? <LuMinusCircle size={"20px"}/> :<LuPlusCircle size={"20px"}/>}
             </div>
-            <div className={classes.initial + " " + (isOpen ? classes.open: "")}>
-                {isOpen? props.children: null}
+            <div className={containerClasses}>
+                <div className={classes.hidden}>
+                    {props.children}
+                </div>
             </div>
         </section>
     )

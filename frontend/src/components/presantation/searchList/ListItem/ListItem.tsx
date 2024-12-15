@@ -12,9 +12,6 @@ interface Props {
 
 const ListItem = ({ spots, indexNumber, extrackList, selectedValue, onChange }: Props) => {
 
-    console.log("spotsの中身")
-    console.log(spots)
-
     const eatingSpots = spots.filter(spot => spot.types.includes("restaurant"))
     const hotelSpots = spots.filter(spot => ["spa","hotel"].some(type => spot.types.includes(type)))
     const recommendSpots = spots.filter(spot => ["tourist_attraction", "point_of_interest"].some(type => spot.types.includes(type)))
