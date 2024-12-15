@@ -58,7 +58,7 @@ const TopTemplate = (props: Props) => {
                     />
                 </div>
                 <section className={classes.travelDepatureArea}>
-                    <h3>出発地</h3>
+                    <h3 className={classes.heading}>出発地</h3>
                     <div>
                         <Radio 
                             labelName="現在地" 
@@ -66,7 +66,6 @@ const TopTemplate = (props: Props) => {
                             checked={props.depatureAt === "geolocation" ? true: false}
                             onChange={props.onRadioChange}
                         />
-                        <p>{(props.location && typeof props.location !== 'string') ? `${props.location.latitude} ${props.location.longitude}` : ""}</p>
                         <Radio 
                             labelName="出発地の住所を入力する" 
                             value="address" 
